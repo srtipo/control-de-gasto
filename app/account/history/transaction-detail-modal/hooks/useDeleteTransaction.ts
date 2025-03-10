@@ -1,13 +1,7 @@
 import { useDeleteRequest } from "@/app/Api-request/hooks/use-delete-request";
-import { useSubscription } from "@/app/Api-request/subscription-Provider";
 
-export function useDeleteTransaction(
-  transactionId: string,
-  onSuccess: () => void
-) {
-  const key = ["deleteTransaction", transactionId];
+export function useDeleteTransaction(onSuccess: () => void) {
   const { mutate, ...restProps } = useDeleteRequest({
-    endpoint: `/transactions/${transactionId}`,
     onSuccess: () => {
       onSuccess();
     },
@@ -15,5 +9,9 @@ export function useDeleteTransaction(
       console.log(error);
     },
   });
-  return { deleteTransaction: mutate, ...restProps };
+
+  const deleteTransaction = (transactionId: string) => {
+    return mutate(`/transactions/${transactionId}`);
+  };
+  return { deleteTransaction, ...restProps };
 }

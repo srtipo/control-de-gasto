@@ -3,17 +3,16 @@ import { useHandleError } from "../on-error/hooks/use-handle-error";
 import { useSession } from "@/app/auth/session.provider";
 
 export function useDeleteRequest({
-  endpoint,
   onSuccess,
   onError,
 }: {
-  endpoint: string;
   onSuccess?: (data: any) => void;
   onError?: (error: any) => void;
 }) {
   const session = useSession();
   const { mutate, ...restProps } = useMutation({
-    mutationFn: () => request({ endpoint, token: session?.session }),
+    mutationFn: (endpoiont: string): Promise<any> =>
+      request({ endpoint: endpoiont, token: session?.session }),
     onSuccess: (data) => {
       onSuccess && onSuccess(data);
     },

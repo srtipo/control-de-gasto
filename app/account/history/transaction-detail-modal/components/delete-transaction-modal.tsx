@@ -1,6 +1,5 @@
 import { useColor } from "@/theme/hooks/useColor";
 import { MainButton } from "@/ui/buttons/main-button";
-import { SecundaryButton } from "@/ui/buttons/secundaryButtom";
 import { SimpleTitle } from "@/ui/text/simple-titl";
 import { Modal, Text, View } from "react-native";
 import { useDeleteTransaction } from "../hooks/useDeleteTransaction";
@@ -18,7 +17,7 @@ export function DeleteTransactionModal({
   const color = useColor();
   const { updateTransactionList } = useTransactionListContext();
   const { closeModal: closeDescriptionModal } = useTransactionDetailModal();
-  const { deleteTransaction } = useDeleteTransaction(id, () => {
+  const { deleteTransaction } = useDeleteTransaction(() => {
     setVisible(false);
   });
   return (
@@ -71,7 +70,7 @@ export function DeleteTransactionModal({
                       page: prevState.page,
                     };
                   });
-                  deleteTransaction();
+                  deleteTransaction(id);
                   closeDescriptionModal();
                 }}
               ></MainButton>

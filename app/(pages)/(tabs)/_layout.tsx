@@ -1,8 +1,7 @@
 import { useColor } from "@/theme/hooks/useColor";
+import AdminSvg from "@/ui/svg/admin-svg";
 import HomeSvg from "@/ui/svg/home-svg";
-import { MainTitle } from "@/ui/titles/main-title";
-import { Stack, Tabs } from "expo-router";
-import { View } from "react-native";
+import { Tabs } from "expo-router";
 
 export default function Layout() {
   const color = useColor();
@@ -21,19 +20,19 @@ export default function Layout() {
       }}
     >
       <Tabs.Screen
-        name="home2"
-        options={{
-          title: "Home2",
-          tabBarIcon: ({ color }) => (
-            <HomeSvg color={color} height={20} width={20} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="home"
         options={{
           tabBarIcon: ({ color }) => (
             <HomeSvg color={color} height={40} width={40} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="admin"
+        options={{
+          title: "Admin",
+          tabBarIcon: ({ color }) => (
+            <AdminSvg color={color} height={40} width={40} />
           ),
         }}
       />

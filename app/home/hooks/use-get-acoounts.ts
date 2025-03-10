@@ -1,5 +1,5 @@
-import { AccountTypeEnum } from "@/enums/account-type-enum";
 import { useGetRequest } from "../../Api-request/hooks/use-get-request";
+import { IAccount } from "@/app/Api-request/interface/response/accounts/get-account-list";
 
 export function useGetAccounts() {
   const key = ["accounts"];
@@ -7,13 +7,4 @@ export function useGetAccounts() {
   const { data: accounts, ...restProps } = useGetRequest(key, endpoint);
   const data = accounts as IAccount[];
   return { data, ...restProps };
-}
-
-export interface IAccount {
-  id: string;
-  name: string;
-  currency: string;
-  balance: number;
-  description: string;
-  accountType: AccountTypeEnum;
 }

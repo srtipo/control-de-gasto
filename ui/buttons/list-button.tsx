@@ -30,7 +30,7 @@ export function ListButton({
           },
           { opacity: pressed ? 0.8 : 1 },
           {
-            padding: 10,
+            padding: 8,
             borderRadius: 20,
             backgroundColor: backgroundColor,
           },
