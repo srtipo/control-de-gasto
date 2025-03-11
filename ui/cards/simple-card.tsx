@@ -17,7 +17,7 @@ export function SimpleCard({
         backgroundColor: color.card,
         borderRadius: 30,
         boxShadow: `0px 8px 10px  ${color.shadow}`,
-        maxHeight: maxHeight ? maxHeight : 200,
+        maxHeight: maxHeight ? maxHeight : "auto",
       }}
     >
       {children}

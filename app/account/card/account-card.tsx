@@ -22,7 +22,7 @@ export function AccountCard({ name, balance, id, accountType }: IAccount) {
       {isLoading && <SimpleLoading />}
       {error && <Text>{error?.message}</Text>}
       {account && (
-        <Pressable onLongPress={handleLongPress}>
+        <View style={{ padding: 5 }}>
           <View
             style={{
               flexDirection: "row",
@@ -107,7 +107,7 @@ export function AccountCard({ name, balance, id, accountType }: IAccount) {
               size={70}
             ></AddButton>
           </View>
-        </Pressable>
+        </View>
       )}
     </SimpleCard>
   );

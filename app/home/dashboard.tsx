@@ -4,6 +4,7 @@ import { useColor } from "@/theme/hooks/useColor";
 import { AddPrimaryButton } from "@/ui/buttons/add-primary-buttom";
 import { AccountCard } from "../account/card/account-card";
 import { router } from "expo-router";
+import { EmptyDashboard } from "./components/empty-dashboard";
 
 export function Dashboard() {
   const {
@@ -19,7 +20,7 @@ export function Dashboard() {
     <View style={{ flexDirection: "column" }}>
       {isLoading && <Text>Loading...</Text>}
       {error && <Text>{error?.message}</Text>}
-      {accounts && !isFetching && (
+      {accounts?.length > 0 && !isFetching && (
         <View style={{ paddingBlock: 10 }}>
           <FlatList
             data={accounts}
@@ -61,7 +62,7 @@ export function Dashboard() {
           />
         </View>
       )}
-      {}
+      {accounts?.length == 0 && <EmptyDashboard />}
     </View>
   );
 }

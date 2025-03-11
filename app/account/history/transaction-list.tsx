@@ -10,6 +10,7 @@ import { MainButton } from "@/ui/buttons/main-button";
 import { useEffect, useState } from "react";
 import { orderTransactionByDates } from "./hooks/useOrderTransactionByDates";
 import { useTransactionListContext } from "./components/transaction-list-provider";
+import { Write } from "@/ui/text/write";
 
 export function TransactionList({ accountId }: { accountId: string }) {
   const [page, setPage] = useState(1);
@@ -95,9 +96,15 @@ export function TransactionList({ accountId }: { accountId: string }) {
         </View>
       )}
       {isLoading && <SimpleLoading />}
-      {TransactionList?.length == 0 && (
-        <View style={{ paddingBlock: 10 }}>
-          <Text>No hay transacciones</Text>
+      {transactionList?.length == 0 && !isLoading && (
+        <View
+          style={{
+            paddingBlock: 10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Write text="No hay transacciones"></Write>
         </View>
       )}
     </ScrollView>

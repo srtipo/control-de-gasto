@@ -1,4 +1,5 @@
 import { AccountCard } from "@/app/admin/account-card/components/account-card";
+import { AddAccountButton } from "@/app/admin/account-card/components/add-account-button";
 import { CategorieCard } from "@/app/admin/components/categorie-card";
 import { CurrencyCard } from "@/app/admin/components/currency-card";
 import { TableTitleCard } from "@/app/admin/components/table-title-card";
@@ -17,8 +18,23 @@ export default function Admin() {
       }}
     >
       <ScrollView>
-        <View style={{ paddingBlock: 10 }}>
-          <SimpleTitle text="Cuentas"></SimpleTitle>
+        <View
+          style={{
+            paddingBlock: 10,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingInline: 20,
+              paddingBlock: 5,
+            }}
+          >
+            <View style={{ width: 30 }}></View>
+            <SimpleTitle text="Cuentas"></SimpleTitle>
+            <AddAccountButton />
+          </View>
           <AccountCard
             table={
               <TableTitleCard key="AccountCard" items={["Nombre", "Tipo"]} />

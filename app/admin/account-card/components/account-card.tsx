@@ -31,7 +31,7 @@ export function AccountCard({ table }: { table: React.ReactNode }) {
         {isLoading && <SimpleLoading />}
         {table}
         <ScrollView nestedScrollEnabled={true}>
-          <View style={{ paddingBlock: 5 }}>
+          <View style={{ paddingBlock: 2 }}>
             {data?.length === 0 && (
               <Write
                 style={{ textAlign: "center" }}
