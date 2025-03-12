@@ -6,5 +6,10 @@ export function useGetCurrencies() {
     ["GET_CURRENCY"],
     "/currencies"
   );
-  return { currencies: data as getCurrencyList, isLoading, error, restProps };
+  return {
+    currencies: data as getCurrencyList,
+    isLoading,
+    error,
+    ...restProps,
+  };
 }

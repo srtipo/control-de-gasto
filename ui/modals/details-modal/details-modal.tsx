@@ -39,7 +39,7 @@ export function DetailsModal({ children }: { children: React.ReactNode }) {
             height: "50%",
           }}
         >
-          {children}
+          {isVisible && children}
         </View>
       </View>
     </Modal>

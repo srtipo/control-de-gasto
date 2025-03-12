@@ -1,52 +1,52 @@
-import { useGetAccounts } from "@/app/home/hooks/use-get-acoounts";
-import { useColor } from "@/theme/hooks/useColor";
+import { useGetCurrencies } from "@/app/currency/hooks/useGetCurrencies";
 import { SimpleCard } from "@/ui/cards/simple-card";
 import { SimpleLoading } from "@/ui/loading/simple-loadiing";
 import { ScrollView, Text, View } from "react-native";
-import { CardItem } from "../../components/card-item";
-import React, { useState } from "react";
-import { AccountDetails } from "./accountDetails";
-import { useDetailsModalContext } from "@/ui/modals/details-modal/details-modal-provider";
-import { DeleteConfirmModal } from "./delete-confirm-modal";
-import { useToBeSureModalContext } from "@/ui/modals/alert-modals/to-be-sure-modal-provider";
-import { Write } from "@/ui/text/write";
-import { useDeleteAccount } from "@/app/account/hooks/useDeleteAccount";
-import { AccountModalContextEnum } from "../domain/account-modal-contex-enum";
 
-export function AccountCard({ table }: { table: React.ReactNode }) {
+import { useColor } from "@/theme/hooks/useColor";
+import { CardItem } from "../../components/card-item";
+import { useState } from "react";
+import { CurrencyDetails } from "./currency-details";
+import { useDetailsModalContext } from "@/ui/modals/details-modal/details-modal-provider";
+import { ModalContextEnum } from "../domain/modal-context-enum";
+import { DeleteModal } from "./delete-modal";
+import { useToBeSureModalContext } from "@/ui/modals/alert-modals/to-be-sure-modal-provider";
+import { useDeleteCurrency } from "@/app/currency/hooks/useDeletecurrency";
+import { Write } from "@/ui/text/write";
+
+export function CurrencyCard({ table }: { table: React.ReactNode }) {
   const color = useColor();
-  const { data, isLoading, refetch } = useGetAccounts();
+  const { currencies, isLoading, refetch } = useGetCurrencies();
+  const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
   const { openDetailsModal } = useDetailsModalContext();
   const { openToBeSureModal, onConfirm } = useToBeSureModalContext();
-  const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
-  const { deleteAccount } = useDeleteAccount();
-
-  const onPress = (account: string) => {
-    openDetailsModal(AccountModalContextEnum.AccountDetails);
-    setSelectedAccount(account);
-  };
-
+  const { deleteCurrency } = useDeleteCurrency();
   return (
     <View style={{ paddingTop: 5 }}>
       <SimpleCard maxHeight={300}>
         {isLoading && <SimpleLoading />}
         {table}
         <ScrollView nestedScrollEnabled={true}>
-          <View style={{ paddingBlock: 2 }}>
-            {data?.length === 0 && (
+          <View style={{ paddingBlock: 5 }}>
+            {currencies?.length === 0 && (
               <Write
                 style={{ textAlign: "center" }}
-                text="No tienes cuentas aún"
+                text="No tienes monedas aún"
               ></Write>
             )}
-            {data?.map((account) => (
+            {currencies?.map((currency) => (
               <CardItem
-                key={account.id}
-                onPress={() => onPress(account.id)}
+                key={currency.id}
+                onPress={() => {
+                  setSelectedCurrency(currency.id);
+                  openDetailsModal(ModalContextEnum.CurrencyDetails);
+                }}
                 onDelete={() => {
-                  openToBeSureModal(AccountModalContextEnum.AccountDelete);
+                  openToBeSureModal(ModalContextEnum.CurrencyDelete);
                   onConfirm(async () => {
-                    deleteAccount(account.id).then(refetch);
+                    deleteCurrency(currency.id).then(() => {
+                      refetch();
+                    });
                   });
                 }}
               >
@@ -65,7 +65,7 @@ export function AccountCard({ table }: { table: React.ReactNode }) {
                       textAlign: "center",
                     }}
                   >
-                    {account.name}
+                    {currency.name}
                   </Text>
                   <Text
                     numberOfLines={1}
@@ -75,18 +75,17 @@ export function AccountCard({ table }: { table: React.ReactNode }) {
                       textAlign: "center",
                     }}
                   >
-                    {account.accountType}
+                    {currency.abbr}
                   </Text>
                 </View>
               </CardItem>
             ))}
-            <View style={{ paddingBlock: 5 }}></View>
           </View>
         </ScrollView>
       </SimpleCard>
-      {selectedAccount && <AccountDetails accountId={selectedAccount} />}
-      {}
-      <DeleteConfirmModal refetch={refetch} />
+      {selectedCurrency && <CurrencyDetails currencyId={selectedCurrency} />}
+
+      <DeleteModal refresh={refetch} />
     </View>
   );
 }

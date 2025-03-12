@@ -4,20 +4,22 @@ export const ToBeSureModalContext = createContext<{
   isVisible: boolean;
   setIsVisible: (state: boolean) => void;
   closeToBeSureModal: () => void;
-  openToBeSureModal: () => void;
+  openToBeSureModal: (context: string) => void;
   onCancel: (cancel: () => void) => void;
   onConfirm: (onConfirm: () => Promise<void>) => void;
   Cancel: () => void;
   Confirm: () => Promise<void>;
+  Context: string;
 }>({
   isVisible: false,
   setIsVisible: (state) => {},
   closeToBeSureModal: () => {},
-  openToBeSureModal: () => {},
+  openToBeSureModal: (context) => {},
   onCancel: (cancel) => {},
   onConfirm: () => () => {},
   Cancel: () => {},
   Confirm: () => Promise.resolve(),
+  Context: "",
 });
 
 export function ToBeSureModalProvider({
@@ -26,6 +28,7 @@ export function ToBeSureModalProvider({
   children: React.ReactNode;
 }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [Context, setContext] = useState("");
   const [Cancel, setCancel] = useState<() => void>(() => {});
   const [Confirm, setConfirm] = useState<() => Promise<void>>(() =>
     Promise.resolve()
@@ -37,8 +40,9 @@ export function ToBeSureModalProvider({
   const closeToBeSureModal = () => {
     setIsVisible(false);
   };
-  const openToBeSureModal = () => {
+  const openToBeSureModal = (context: string) => {
     setIsVisible(true);
+    setContext(context);
   };
   const onCancel = (onCancel: () => void) => {
     setCancel(onCancel);
@@ -60,6 +64,7 @@ export function ToBeSureModalProvider({
         onConfirm,
         Cancel,
         Confirm,
+        Context,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { Modal, View } from "react-native";
 import { useToBeSureModalContext } from "./to-be-sure-modal-provider";
 
 export function ToBeSureModal({ children }: { children: React.ReactNode }) {
-  const { isVisible, setIsVisible } = useToBeSureModalContext();
+  const { isVisible, closeToBeSureModal } = useToBeSureModalContext();
   const color = useColor();
   return (
     <Modal
@@ -11,7 +11,7 @@ export function ToBeSureModal({ children }: { children: React.ReactNode }) {
       animationType="slide"
       transparent={true}
       onRequestClose={() => {
-        setIsVisible(false);
+        closeToBeSureModal();
       }}
     >
       <View style={{ flex: 1, backgroundColor: "trasparent" }}>

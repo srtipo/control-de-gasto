@@ -6,7 +6,7 @@ export function Write({
   fontSize = 16,
   style,
 }: {
-  text: string | number;
+  text: string;
   fontSize?: number;
   style?: StyleProp<TextStyle>;
 }) {
