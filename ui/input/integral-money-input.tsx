@@ -2,21 +2,17 @@ import { useColor } from "@/theme/hooks/useColor";
 import { useState } from "react";
 import { TextInput } from "react-native";
 
-export const MoneyInput = ({
+export const IntegralMoneyInput = ({
   value,
   onChange,
   error,
-  defaultValue = 0,
 }: {
-  defaultValue?: number;
   value?: number;
   onChange: (value: string) => void;
   error?: string;
 }) => {
   const color = useColor();
-  const [amount, setAmount] = useState(
-    getFomatedAmount(defaultValue.toString())
-  );
+  const [amount, setAmount] = useState("0");
 
   return (
     <TextInput
@@ -49,25 +45,15 @@ const cleanNumber = (amount: string) => {
 };
 
 const getFomatedAmount = (amount: string) => {
-  const cleanAmount = cleanNumber(amount);
-  const decimalPart = cleanAmount.slice(-2);
-  const integerPart = cleanAmount.slice(0, -2);
-  let formatedIntegerPart = "0";
-  let formatedDecimalPart = "00" + decimalPart;
-  if (integerPart?.length > 0) {
-    const value =
-      integerPart?.length > 12 ? integerPart.slice(0, 12) : integerPart;
-    formatedIntegerPart = value
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-  if (integerPart?.length > 0) {
-  }
+  const value = amount?.length > 12 ? amount.slice(0, 12) : amount;
+  const formatedIntegerPart = value
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-  return formatedIntegerPart + "," + formatedDecimalPart.slice(-2);
+  return formatedIntegerPart;
 };
 
 const getNumericValue = (amount: string) => {
-  const value = Number(cleanNumber(amount)) / 100;
-  return value.toFixed(2);
+  const value = Number(cleanNumber(amount));
+  return value.toString();
 };

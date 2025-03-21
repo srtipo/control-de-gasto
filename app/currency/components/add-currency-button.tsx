@@ -15,7 +15,7 @@ export function AddCurrencyButton() {
       <AddButton
         unPressedShadow={`2px 2px 2px ${color.shadow}`}
         onPress={() => {
-          router.push(`/currency/addCurrency`);
+          router.push(`/currency/add-currency`);
         }}
       ></AddButton>
     </View>

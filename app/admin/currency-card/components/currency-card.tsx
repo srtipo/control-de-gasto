@@ -5,7 +5,7 @@ import { ScrollView, Text, View } from "react-native";
 
 import { useColor } from "@/theme/hooks/useColor";
 import { CardItem } from "../../components/card-item";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CurrencyDetails } from "./currency-details";
 import { useDetailsModalContext } from "@/ui/modals/details-modal/details-modal-provider";
 import { ModalContextEnum } from "../domain/modal-context-enum";
@@ -13,6 +13,8 @@ import { DeleteModal } from "./delete-modal";
 import { useToBeSureModalContext } from "@/ui/modals/alert-modals/to-be-sure-modal-provider";
 import { useDeleteCurrency } from "@/app/currency/hooks/useDeletecurrency";
 import { Write } from "@/ui/text/write";
+import { useFocusEffect } from "expo-router";
+import { getCurrencyList } from "@/app/Api-request/interface/response/currencies/get-currency-list";
 
 export function CurrencyCard({ table }: { table: React.ReactNode }) {
   const color = useColor();
@@ -21,6 +23,12 @@ export function CurrencyCard({ table }: { table: React.ReactNode }) {
   const { openDetailsModal } = useDetailsModalContext();
   const { openToBeSureModal, onConfirm } = useToBeSureModalContext();
   const { deleteCurrency } = useDeleteCurrency();
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
   return (
     <View style={{ paddingTop: 5 }}>
       <SimpleCard maxHeight={300}>
