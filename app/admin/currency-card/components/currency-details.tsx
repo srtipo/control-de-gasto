@@ -47,6 +47,10 @@ export function CurrencyDetails({ currencyId }: { currencyId: string }) {
                     fontSize={16}
                   />
                 </ItemDetailModal>
+                <ItemDetailModal>
+                  <Write text="Moneda Principal" fontSize={16} />
+                  <Write text={currency.primary ? "Si" : "No"} fontSize={16} />
+                </ItemDetailModal>
               </View>
 
               <View
@@ -63,8 +67,9 @@ export function CurrencyDetails({ currencyId }: { currencyId: string }) {
                 />
                 <SecundaryButton
                   textStyle={{ width: 100, textAlign: "center" }}
-                  buttonColor={color.error}
+                  buttonColor={currency.primary ? color.secondary : color.error}
                   title="Eliminar"
+                  disabled={currency.primary}
                   onPress={() => {
                     onConfirm(async () => {
                       await deleteCurrency(currencyId);

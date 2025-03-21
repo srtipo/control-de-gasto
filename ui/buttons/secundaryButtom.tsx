@@ -21,7 +21,7 @@ export function SecundaryButton({
       style={[
         {
           backgroundColor: "transparent",
-          borderColor: buttonColor ? buttonColor : color.secondary,
+          borderColor: buttonColor ? buttonColor : color.primary,
           borderWidth: 1,
           borderStyle: "dashed",
           padding: 10,
@@ -37,7 +37,7 @@ export function SecundaryButton({
       <Text
         style={[
           {
-            color: buttonColor ? buttonColor : color.secondary,
+            color: buttonColor ? buttonColor : color.primary,
             fontSize: 15,
           },
           textStyle,

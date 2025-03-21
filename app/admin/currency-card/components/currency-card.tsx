@@ -14,7 +14,7 @@ import { useToBeSureModalContext } from "@/ui/modals/alert-modals/to-be-sure-mod
 import { useDeleteCurrency } from "@/app/currency/hooks/useDeletecurrency";
 import { Write } from "@/ui/text/write";
 import { useFocusEffect } from "expo-router";
-import { getCurrencyList } from "@/app/Api-request/interface/response/currencies/get-currency-list";
+import StarSvg from "@/ui/svg/star-svg";
 
 export function CurrencyCard({ table }: { table: React.ReactNode }) {
   const color = useColor();
@@ -44,6 +44,7 @@ export function CurrencyCard({ table }: { table: React.ReactNode }) {
             )}
             {currencies?.map((currency) => (
               <CardItem
+                deleteDisabled={currency.primary && true}
                 key={currency.id}
                 onPress={() => {
                   setSelectedCurrency(currency.id);
@@ -86,6 +87,9 @@ export function CurrencyCard({ table }: { table: React.ReactNode }) {
                     {currency.abbr}
                   </Text>
                 </View>
+                {currency.primary === true && (
+                  <StarSvg color={color.primary} width={15} height={15} />
+                )}
               </CardItem>
             ))}
           </View>

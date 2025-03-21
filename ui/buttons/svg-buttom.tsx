@@ -3,11 +3,13 @@ import { PressableProps } from "react-native-gesture-handler";
 
 export function SvgButton({
   children,
+  disabled = false,
   onPress,
   style,
   ...props
 }: {
   children: React.ReactNode;
+  disabled?: boolean;
   onPress: () => void;
   style?: StyleProp<PressableProps>;
 }) {
@@ -27,6 +29,7 @@ export function SvgButton({
       onPress={() => {
         onPress();
       }}
+      disabled={disabled}
       {...props}
     >
       {children}

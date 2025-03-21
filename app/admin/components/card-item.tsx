@@ -11,8 +11,10 @@ export function CardItem({
   onPress,
   onDelete,
   onEdit,
+  deleteDisabled = false,
 }: {
   children: React.ReactNode;
+  deleteDisabled?: boolean;
   onPress: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
@@ -34,11 +36,16 @@ export function CardItem({
               <EditSvg color={color.primary} />
             </SvgButton>
             <SvgButton
+              disabled={deleteDisabled}
               onPress={() => {
                 onDelete?.();
               }}
             >
-              <TrashcanSvg color={color.error} height={20} width={20} />
+              <TrashcanSvg
+                color={deleteDisabled ? color.secondary : color.error}
+                height={20}
+                width={20}
+              />
             </SvgButton>
           </View>
         </View>
