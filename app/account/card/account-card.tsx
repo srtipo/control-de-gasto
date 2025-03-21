@@ -14,9 +14,6 @@ export function AccountCard({ name, balance, id, accountType }: IAccount) {
   const color = useColor();
   const { reLoadQuery } = useSubscription();
   const { account, isLoading, error } = useAccountDetails({ accountId: id });
-  const handleLongPress = () => {
-    console.log("long press");
-  };
   return (
     <SimpleCard>
       {isLoading && <SimpleLoading />}

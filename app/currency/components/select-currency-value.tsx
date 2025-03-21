@@ -120,7 +120,7 @@ export function SelectCurrencyValue({
                 }}
               />
               <Write
-                text={currencyName}
+                text={currencyName != "" ? currencyName : "Nueva Moneda"}
                 numberOfLines={1}
                 fontSize={18}
                 style={{ width: 150, textAlign: "center", paddingLeft: 10 }}
