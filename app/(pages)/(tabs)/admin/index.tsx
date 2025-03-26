@@ -1,5 +1,6 @@
 import { AccountCard } from "@/app/admin/account-card/components/account-card";
 import { AddAccountButton } from "@/app/admin/account-card/components/add-account-button";
+import { AddCategoryButton } from "@/app/admin/categorie-card/components/add-category-button";
 import { CategorieCard } from "@/app/admin/categorie-card/components/categorie-card";
 
 import { TableTitleCard } from "@/app/admin/components/table-title-card";
@@ -66,7 +67,19 @@ export default function Admin() {
           />
         </View>
         <View style={{ paddingBlock: 10 }}>
-          <SimpleTitle text="Categorías"></SimpleTitle>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingInline: 20,
+              paddingBlock: 5,
+            }}
+          >
+            <View style={{ width: 30 }}></View>
+            <SimpleTitle text="Categorías"></SimpleTitle>
+            <AddCategoryButton />
+          </View>
+
           <CategorieCard
             table={
               <TableTitleCard key="CategorieCard" items={["Nombre", "Tipo"]} />

@@ -27,6 +27,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="account" options={{ headerShown: false }} />
             <Stack.Screen name="currency" options={{ headerShown: false }} />
+            <Stack.Screen name="category" options={{ headerShown: false }} />
           </Stack>
         </SessionProvider>
       </SubscriptionProvider>
