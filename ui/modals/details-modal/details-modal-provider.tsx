@@ -5,13 +5,15 @@ export const DetailsModalContext = createContext<{
   context: string;
   setIsVisible: (state: boolean) => void;
   closeDetailsModal: () => void;
-  openDetailsModal: (context: string) => void;
+  openDetailsModal: (context?: string) => void;
+  onCloseDetailsModal: (action: () => void) => void;
 }>({
   isVisible: false,
   context: "",
   setIsVisible: (state) => {},
   closeDetailsModal: () => {},
   openDetailsModal: () => {},
+  onCloseDetailsModal: () => {},
 });
 
 export function DetailsModalProvider({
@@ -21,17 +23,23 @@ export function DetailsModalProvider({
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [context, setContext] = useState<string>("");
+  const [closeAction, setCloseAction] = useState<() => void>();
+
+  const onCloseDetailsModal = (action: () => void) => {
+    setCloseAction(() => () => action());
+  };
 
   const setIsOpenModal = (state: boolean) => {
     setIsVisible(state);
   };
   const closeDetailsModal = () => {
+    closeAction && closeAction();
     setIsVisible(false);
     setContext("");
   };
-  const openDetailsModal = (contextModal: string) => {
+  const openDetailsModal = (contextModal?: string) => {
     setIsVisible(true);
-    setContext(contextModal);
+    setContext(contextModal || "");
   };
 
   return (
@@ -42,6 +50,7 @@ export function DetailsModalProvider({
         setIsVisible: setIsOpenModal,
         closeDetailsModal,
         openDetailsModal,
+        onCloseDetailsModal,
       }}
     >
       {children}

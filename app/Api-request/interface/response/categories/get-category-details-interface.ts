@@ -1,7 +1,7 @@
 import { TransactionTypeEnum } from "@/enums/transaction-type-enum";
-export interface GetCategoryListInterface {
+
+export interface GetCategoryDetailsInterface {
   id: string;
   name: string;
   type: TransactionTypeEnum;
 }
-[];

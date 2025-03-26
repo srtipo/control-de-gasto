@@ -3,14 +3,14 @@ import { Modal, TouchableWithoutFeedback, View } from "react-native";
 import { useDetailsModalContext } from "./details-modal-provider";
 export function DetailsModal({ children }: { children: React.ReactNode }) {
   const color = useColor();
-  const { setIsVisible, isVisible } = useDetailsModalContext();
+  const { closeDetailsModal, isVisible } = useDetailsModalContext();
 
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={isVisible}
-      onRequestClose={() => setIsVisible(false)}
+      onRequestClose={() => closeDetailsModal()}
     >
       <View
         style={{
@@ -19,7 +19,7 @@ export function DetailsModal({ children }: { children: React.ReactNode }) {
           flex: 1,
         }}
       >
-        <TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
+        <TouchableWithoutFeedback onPress={() => closeDetailsModal()}>
           <View
             style={{
               padding: 20,

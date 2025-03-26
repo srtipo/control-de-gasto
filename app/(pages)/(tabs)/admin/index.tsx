@@ -1,6 +1,6 @@
 import { AccountCard } from "@/app/admin/account-card/components/account-card";
 import { AddAccountButton } from "@/app/admin/account-card/components/add-account-button";
-import { CategorieCard } from "@/app/admin/components/categorie-card";
+import { CategorieCard } from "@/app/admin/categorie-card/components/categorie-card";
 
 import { TableTitleCard } from "@/app/admin/components/table-title-card";
 import { CurrencyCard } from "@/app/admin/currency-card/components/currency-card";

@@ -2,7 +2,13 @@ import { useColor } from "@/theme/hooks/useColor";
 import { Modal, View } from "react-native";
 import { useToBeSureModalContext } from "./to-be-sure-modal-provider";
 
-export function ToBeSureModal({ children }: { children: React.ReactNode }) {
+export function ToBeSureModal({
+  children,
+  onCancel,
+}: {
+  children: React.ReactNode;
+  onCancel?: () => void;
+}) {
   const { isVisible, closeToBeSureModal } = useToBeSureModalContext();
   const color = useColor();
   return (
@@ -11,6 +17,7 @@ export function ToBeSureModal({ children }: { children: React.ReactNode }) {
       animationType="slide"
       transparent={true}
       onRequestClose={() => {
+        onCancel && onCancel();
         closeToBeSureModal();
       }}
     >
