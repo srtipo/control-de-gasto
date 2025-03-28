@@ -2,9 +2,32 @@ import { useColor } from "@/theme/hooks/useColor";
 import AdminSvg from "@/ui/svg/admin-svg";
 import HomeSvg from "@/ui/svg/home-svg";
 import { Tabs } from "expo-router";
+import { useEffect, useState } from "react";
+import { Keyboard } from "react-native";
 
 export default function Layout() {
   const color = useColor();
+  const [tabsVisible, setTabsVisible] = useState(true);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setTabsVisible(false);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setTabsVisible(true);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
   return (
     <Tabs
       initialRouteName="home"
@@ -13,6 +36,7 @@ export default function Layout() {
         tabBarLabelPosition: "beside-icon",
         headerShown: false,
         tabBarStyle: {
+          display: tabsVisible ? "flex" : "none",
           backgroundColor: color.background,
           borderTopWidth: 1,
           borderColor: "rgba(0, 0, 0, 0.1)",
