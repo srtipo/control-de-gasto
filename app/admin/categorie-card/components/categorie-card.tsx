@@ -6,9 +6,10 @@ import { useGetCategoryList } from "@/app/transaction/hooks/useGetCategoryList";
 import { useColor } from "@/theme/hooks/useColor";
 import { CategorieDetailModal } from "./categorie-detail-modal";
 import { DetailsModalProvider } from "@/ui/modals/details-modal/details-modal-provider";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ToBeSureModalProvider } from "@/ui/modals/alert-modals/to-be-sure-modal-provider";
 import { CategorieDeleteModal } from "./categorie-delete-modal";
+import { useFocusEffect } from "expo-router";
 
 export function CategorieCard({ table }: { table: React.ReactNode }) {
   const color = useColor();
@@ -16,6 +17,12 @@ export function CategorieCard({ table }: { table: React.ReactNode }) {
   const [visibleModal, setVisibleModal] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>();
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
   return (
     <DetailsModalProvider>
       <ToBeSureModalProvider>
