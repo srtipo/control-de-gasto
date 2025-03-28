@@ -1,5 +1,10 @@
 import TransactionPage from "@/app/transaction/transaction-page";
+import { KeyboardAvoidingView } from "react-native";
 
 export default function AddTransaction() {
-  return <TransactionPage />;
+  return (
+    <KeyboardAvoidingView behavior={"padding"} style={{ flex: 1 }}>
+      <TransactionPage />
+    </KeyboardAvoidingView>
+  );
 }

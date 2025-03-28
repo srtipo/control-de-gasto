@@ -1,6 +1,6 @@
 import { CreateCurrencyForm } from "@/app/currency/add-currency/components/create-currency-form";
 import { useColor } from "@/theme/hooks/useColor";
-import { View } from "react-native";
+import { KeyboardAvoidingView, View } from "react-native";
 
 export default function AddCurrency() {
   const color = useColor();
@@ -13,7 +13,9 @@ export default function AddCurrency() {
         paddingInline: 10,
       }}
     >
-      <CreateCurrencyForm />
+      <KeyboardAvoidingView behavior={"padding"} style={{ flex: 1 }}>
+        <CreateCurrencyForm />
+      </KeyboardAvoidingView>
     </View>
   );
 }
