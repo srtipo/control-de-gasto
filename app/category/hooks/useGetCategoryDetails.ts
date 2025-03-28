@@ -3,7 +3,7 @@ import { GetCategoryDetailsInterface } from "@/app/Api-request/interface/respons
 
 export function useGetCategoryDetails({ categoryId }: { categoryId: string }) {
   const { data, isLoading, error, ...restProps } = useGetRequest(
-    ["GET_CATEGORY_DETAILS"],
+    ["GET_CATEGORY_DETAILS", categoryId],
     `/transactions/categories/${categoryId}`
   );
   return {

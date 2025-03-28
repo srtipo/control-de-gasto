@@ -4,4 +4,5 @@ export interface GetCategoryDetailsInterface {
   id: string;
   name: string;
   type: TransactionTypeEnum;
+  description?: string;
 }

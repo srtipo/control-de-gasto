@@ -19,6 +19,7 @@ export function TransactionDescriptionModal() {
           backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black
           alignItems: "center",
           flex: 1,
+          justifyContent: "flex-end",
         }}
       >
         <TouchableWithoutFeedback onPress={() => closeModal()}>
@@ -27,7 +28,7 @@ export function TransactionDescriptionModal() {
               padding: 20,
               borderRadius: 10,
               width: "100%",
-              height: "50%",
+              flex: 1,
             }}
           ></View>
         </TouchableWithoutFeedback>
@@ -38,7 +39,6 @@ export function TransactionDescriptionModal() {
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
             width: "100%",
-            height: "50%",
           }}
         >
           <TransactionDetailModalContent />

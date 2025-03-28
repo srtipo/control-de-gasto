@@ -59,7 +59,7 @@ export function DeleteTransactionModal({
               }}
             >
               <MainButton
-                color={color.success}
+                color={color.error}
                 title="Eliminar"
                 onPress={() => {
                   updateTransactionList((prevState: any) => {
@@ -75,7 +75,7 @@ export function DeleteTransactionModal({
                 }}
               ></MainButton>
               <MainButton
-                color={color.error}
+                color={color.primary}
                 title="Cancelar"
                 onPress={() => {
                   setVisible(false);

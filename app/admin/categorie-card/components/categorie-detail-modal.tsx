@@ -76,6 +76,18 @@ export function CategorieDetailModal({
               <Write text="Tipo de categoría" fontSize={16} />
               <Write text={categoryDetails.type} fontSize={16} />
             </View>
+            {categoryDetails.description && (
+              <View
+                style={{
+                  paddingBlock: 10,
+                }}
+              >
+                <Write
+                  text={`Descripción: ${categoryDetails.description}`}
+                  fontSize={16}
+                />
+              </View>
+            )}
           </View>
 
           <View

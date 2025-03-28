@@ -54,6 +54,7 @@ export function TransactionDetailModalContent() {
       <View style={{ paddingBlock: 10 }}>
         <SecundaryButton
           title="Eliminar"
+          buttonColor={color.error}
           onPress={() => {
             setAlertDelete(true);
           }}

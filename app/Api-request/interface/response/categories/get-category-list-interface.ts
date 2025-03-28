@@ -3,5 +3,6 @@ export interface GetCategoryListInterface {
   id: string;
   name: string;
   type: TransactionTypeEnum;
+  description?: string;
 }
 [];

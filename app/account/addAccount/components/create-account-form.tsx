@@ -24,11 +24,10 @@ export function CreateAccountForm() {
     <View
       style={{
         padding: 20,
-        borderRadius: 10,
       }}
     >
       <View style={{ paddingBlock: 10 }}>
-        <SimpleTitle text=" Creat Cuenta"></SimpleTitle>
+        <SimpleTitle text=" Crear Cuenta"></SimpleTitle>
       </View>
       <ScrollView>
         <Formik
@@ -39,7 +38,7 @@ export function CreateAccountForm() {
           validationSchema={accountSchema}
         >
           {({ handleChange, handleSubmit, values, setFieldValue, errors }) => (
-            <View style={{ paddingBlock: 0 }}>
+            <View style={{ paddingBlock: 10 }}>
               <FormField
                 error={errors.name}
                 label="Nombre de la cuenta"
@@ -102,7 +101,7 @@ export function CreateAccountForm() {
                   placeholder="Descripción"
                 ></Input>
               </FormField>
-              <View style={{ paddingBlock: 15 }}>
+              <View style={{ paddingBottom: 30 }}>
                 <MainButton
                   title="Crear Cuenta"
                   onPress={handleSubmit}
