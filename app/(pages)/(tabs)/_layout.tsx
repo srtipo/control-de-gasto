@@ -4,6 +4,7 @@ import HomeSvg from "@/ui/svg/home-svg";
 import { Tabs } from "expo-router";
 import { useEffect, useState } from "react";
 import { Keyboard } from "react-native";
+import TransferSvg from "@/ui/svg/transfer-svg";
 
 export default function Layout() {
   const color = useColor();
@@ -48,6 +49,16 @@ export default function Layout() {
         options={{
           tabBarIcon: ({ color }) => (
             <HomeSvg color={color} height={40} width={40} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="transfer"
+        options={{
+          title: "Transferir",
+          tabBarIcon: ({ color }) => (
+            <TransferSvg color={color} height={40} width={40} />
           ),
         }}
       />

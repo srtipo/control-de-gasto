@@ -85,7 +85,9 @@ export function CreateAccountForm() {
                 labelStyle={{ fontSize: 18 }}
               >
                 <MoneyInput
-                  onChange={handleChange("balance")}
+                  onChange={(value: string) =>
+                    setFieldValue("balance", Number(value))
+                  }
                   value={values.balance}
                 ></MoneyInput>
               </FormField>

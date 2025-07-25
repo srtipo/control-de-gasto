@@ -7,16 +7,26 @@ import { Input } from "@/ui/input/input";
 import { MainButton } from "@/ui/buttons/main-button";
 import { FormItemRow } from "./form-item-row";
 import { SimpleSwitch } from "@/ui/switches/simple-switch";
-import { SelectCurrencyValue } from "../../components/select-currency-value";
+import {
+  ICurrencyData,
+  SelectCurrencyValue,
+} from "../../components/select-currency-value";
 import { useState } from "react";
 import { initialValues } from "../domain/initialValues";
 import { validateCreateCurrency } from "../domain/validateCreateCurrency";
 import { useCreateCurrency } from "../../hooks/useCreateCurrency";
+import { useGetPrimaryCurrency } from "../../hooks/useGetPrimaryCurrency";
 
 export function CreateCurrencyForm() {
   const color = useColor();
-  const [currencyName, setCurrencyName] = useState("");
+  const [currencyData, setCurrencyData] = useState<ICurrencyData>({
+    name: "",
+    abbr: "",
+    symbol: "",
+    value: 1,
+  } as ICurrencyData);
   const [isDisabled, setIsDisabled] = useState(false);
+  const { primaryCurrency, isLoading } = useGetPrimaryCurrency();
 
   const { createCurrency } = useCreateCurrency();
   return (
@@ -38,7 +48,7 @@ export function CreateCurrencyForm() {
                   boxStyle={{ width: "100%" }}
                   placeholder="Nombre de la moneda"
                   onChangeText={(text: string) => {
-                    setCurrencyName(text);
+                    setCurrencyData({ ...currencyData, name: text });
                     handleChange("name")(text);
                   }}
                   error={errors.name}
@@ -76,14 +86,17 @@ export function CreateCurrencyForm() {
                   }}
                 ></SimpleSwitch>
               </FormItemRow>
-              <FormItemRow label="Value">
-                <SelectCurrencyValue
-                  value={values.value}
-                  currencyName={currencyName}
-                  disabled={isDisabled}
-                  onChange={(value: Number) => setFieldValue("value", value)}
-                ></SelectCurrencyValue>
-              </FormItemRow>
+              {primaryCurrency && (
+                <FormItemRow label="Value">
+                  <SelectCurrencyValue
+                    value={values.value}
+                    mainCurrencyData={primaryCurrency}
+                    compareCurrencyData={currencyData}
+                    disabled={isDisabled}
+                    onChange={(value: Number) => setFieldValue("value", value)}
+                  ></SelectCurrencyValue>
+                </FormItemRow>
+              )}
             </View>
             <MainButton title="Añadir moneda" onPress={handleSubmit} />
           </View>

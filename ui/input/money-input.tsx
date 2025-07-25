@@ -7,16 +7,26 @@ export const MoneyInput = ({
   onChange,
   error,
   defaultValue = 0,
+  width = 130,
 }: {
   defaultValue?: number;
   value?: number;
   onChange: (value: string) => void;
   error?: string;
+  width?: number;
 }) => {
   const color = useColor();
   const [amount, setAmount] = useState(
     getFomatedAmount(defaultValue.toString())
   );
+
+  const getValue = () => {
+    if (value === undefined) {
+      return getFomatedAmount(amount);
+    }
+
+    return getFomatedAmount(value?.toFixed(2).toString());
+  };
 
   return (
     <TextInput
@@ -25,10 +35,12 @@ export const MoneyInput = ({
         minWidth: 130,
         borderColor: error ? color.error : color.secondary,
         borderWidth: 1,
-        backgroundColor: color.input,
+        backgroundColor: color.background,
+        color: color.text,
         borderRadius: 10,
         textAlign: "right",
         fontSize: 18,
+        width: width,
       }}
       placeholder="Monto"
       keyboardType="numeric"
@@ -37,9 +49,7 @@ export const MoneyInput = ({
         onChange(numericValue);
         setAmount(numericValue);
       }}
-      value={
-        value ? getFomatedAmount(value.toString()) : getFomatedAmount(amount)
-      }
+      value={getValue()}
     />
   );
 };

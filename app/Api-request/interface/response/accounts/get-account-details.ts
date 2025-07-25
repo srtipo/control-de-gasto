@@ -5,10 +5,11 @@ export interface IGetAccountDetailsResponse {
   currency: {
     id: string;
     name: string;
-    abbr: string;
+    symbol: string;
     user: string;
     value: number;
     primary: boolean;
+    abbr: string;
   };
   balance: number;
   description: string;

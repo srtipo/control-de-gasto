@@ -6,26 +6,37 @@ import { SimpleTitle } from "@/ui/text/simple-titl";
 import { Write } from "@/ui/text/write";
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { useGetPrimaryCurrency } from "../hooks/useGetPrimaryCurrency";
-import { SimpleLoading } from "@/ui/loading/simple-loadiing";
+export type ICurrencyData = {
+  name: string;
+  abbr: string;
+  symbol: string;
+  value: number;
+};
+
+export type ISelectCurrencyValue = {
+  compareCurrencyData: ICurrencyData;
+  mainCurrencyData: ICurrencyData;
+  disabled?: boolean;
+  onChange?: (value: Number) => void;
+  value?: Number;
+};
 
 export function SelectCurrencyValue({
-  currencyName,
+  compareCurrencyData,
+  mainCurrencyData,
   disabled = false,
   onChange,
   value,
-}: {
-  currencyName: string;
-  disabled: boolean;
-  onChange?: (value: Number) => void;
-  value?: Number;
-}) {
+}: ISelectCurrencyValue) {
   const [IsVisible, setIsVisible] = useState(false);
-  const [principalCurrecyValue, setPrincipalCurrecyValue] = useState(1);
-  const [secondaryCurrecyValue, setSecondaryCurrecyValue] = useState(0);
+  const [principalCurrecyValue, setPrincipalCurrecyValue] = useState(
+    mainCurrencyData.value
+  );
+  const [secondaryCurrecyValue, setSecondaryCurrecyValue] = useState(
+    compareCurrencyData.value
+  );
   const [equivalentValue, setEquivalentValue] = useState(0);
   const color = useColor();
-  const { primaryCurrency, isLoading } = useGetPrimaryCurrency();
 
   const calculateEquivalentValue = () => {
     if (secondaryCurrecyValue < 0.001 || principalCurrecyValue < 0.001) {
@@ -90,16 +101,13 @@ export function SelectCurrencyValue({
                   setPrincipalCurrecyValue(Number(value));
                 }}
               />
-              {isLoading ? (
-                <SimpleLoading />
-              ) : (
-                <Write
-                  text={primaryCurrency?.name}
-                  fontSize={18}
-                  numberOfLines={1}
-                  style={{ width: 150, textAlign: "center", paddingLeft: 10 }}
-                ></Write>
-              )}
+
+              <Write
+                text={mainCurrencyData.name}
+                fontSize={18}
+                numberOfLines={1}
+                style={{ width: 150, textAlign: "center", paddingLeft: 10 }}
+              ></Write>
             </View>
             <Write
               text="="
@@ -120,7 +128,11 @@ export function SelectCurrencyValue({
                 }}
               />
               <Write
-                text={currencyName != "" ? currencyName : "Nueva Moneda"}
+                text={
+                  compareCurrencyData.name != ""
+                    ? compareCurrencyData.name
+                    : "Nueva Moneda"
+                }
                 numberOfLines={1}
                 fontSize={18}
                 style={{ width: 150, textAlign: "center", paddingLeft: 10 }}

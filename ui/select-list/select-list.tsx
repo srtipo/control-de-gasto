@@ -1,7 +1,7 @@
 import { useColor } from "@/theme/hooks/useColor";
 import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
-import { View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 
 export interface ISelectListOption {
   label: string;
@@ -14,24 +14,29 @@ export function SelectList({
   onChange,
   value,
   error,
+  styleBox,
 }: {
   placeholder?: string;
   value?: string;
   options: ISelectListOption[];
   onChange?: (value: string) => void;
   error?: string;
+  styleBox?: StyleProp<ViewStyle>;
 }) {
   const [selectedItem, setSelectedItem] = useState<string | undefined>();
 
   const color = useColor();
   return (
     <View
-      style={{
-        borderColor: error ? color.error : color.secondary,
-        borderWidth: 1,
-        borderRadius: 9,
-        padding: 3,
-      }}
+      style={[
+        {
+          borderColor: error ? color.error : color.secondary,
+          borderWidth: 1,
+          borderRadius: 9,
+          padding: 3,
+        },
+        styleBox,
+      ]}
     >
       <Picker
         mode="dropdown"

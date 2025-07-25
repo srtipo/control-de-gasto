@@ -16,7 +16,7 @@ import { TransactionTypeEnum } from "@/enums/transaction-type-enum";
 import { useAccountDetails } from "@/app/account/hooks/useAccountDetails";
 import { useCreateTransaction } from "../hooks/useCreateTransaction";
 import { useCategoryOptions } from "../hooks/useCategoryOptions";
-import { useAccountOptions } from "../hooks/useAccountOptions";
+import { useAccountOptions } from "../../account/hooks/useAccountOptions";
 import { createTransactionSchema } from "../forms/create-transaction";
 import { createtransactionFormInitialValue } from "../forms/initial-values/create-form-initial-value";
 import { FormField } from "@/ui/forms/form-Field";
@@ -149,7 +149,9 @@ export default function CreateTransactionForm({
                   <MoneyInput
                     error={errors.amount}
                     value={values.amount}
-                    onChange={handleChange("amount")}
+                    onChange={(value: string) => {
+                      setFieldValue("amount", Number(value));
+                    }}
                   />
                   {isLoadingCurrency && <SimpleLoading />}
                   {account?.currency.abbr && (

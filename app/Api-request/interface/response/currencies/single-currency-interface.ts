@@ -1,8 +1,8 @@
 export interface ISingleCurrency {
   name: string;
-  icon: string;
+  symbol: string;
   abbr: string;
-  value: Number;
+  value: number;
   primary: Boolean;
   id: string;
 }
